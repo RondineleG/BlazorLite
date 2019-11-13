@@ -33,29 +33,30 @@
 </div>
 
 
-<table class="table table-hover alert-heading">
+<table class="table table-hover">
     <thead>
-        <tr>
+        <tr class="active">
             <th>Id</th>
             <th>Nome</th>
             <th>Especialidade</th>
-
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="active alert-success">
         @for (int i = 0; i < Pessoas.Count; i++)
         {
             var pessoa = Pessoas[i];
-            <tr>
-                <td>@pessoa.Id</td>
-                <td>@pessoa.Nome</td>
-                <td>@pessoa.Especialidade</td>
-                <td>
-                    <a class="btn btn-danger"   @onclick="()=>RemoveDev(pessoa)">Deletar</a>
-                    <a class="btn btn-primary"  @onclick="()=>EditDev(pessoa)">Editar</a>
-                </td>
-            </tr>
+        <tr>
+            <td>@pessoa.Id</td>
+            <td>@pessoa.Nome</td>
+            <td>@pessoa.Especialidade</td>
+            <td></td>
+            <td></td>
+            <td>
+                <a class="btn btn-danger" @onclick="()=>RemoveDev(pessoa)">Deletar</a>
+                <a class="btn btn-primary" @onclick="()=>EditDev(pessoa)">Editar</a>
+            </td>
+        </tr>
         }
 
     </tbody>
