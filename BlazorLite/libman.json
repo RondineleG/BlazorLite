@@ -7,10 +7,6 @@
       "destination": "wwwroot/lib/twitter-bootstrap/"
     },
     {
-      "library": "jquery@3.4.1",
-      "destination": "wwwroot/lib/jquery/"
-    },
-    {
       "library": "font-awesome@5.11.2",
       "destination": "wwwroot/lib/font-awesome/"
     }
