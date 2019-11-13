@@ -1,1 +1,1 @@
-# BlazorVue
+# BlazorLite
