@@ -1,0 +1,115 @@
+﻿
+@using BlazorLite.Data
+@using BlazorLite.Models
+
+@inject BlazorLite.Data.AppDataContext _db
+
+
+
+<div class="row mb-3">
+    <div class="col-6">
+        <h3>Nova Pessoa</h3>
+        <div>
+
+            <input type="text" id="name" @bind="@pessoa.Name" class="form-control" />
+            <br />
+            <textarea @bind="@pessoa.Description" class="form-control"></textarea>
+            <br />
+
+            @if (ShowConfirmEdit)
+            {
+                <button class="btn btn-primary btn-lg" @onclick="ConfirmEditBug">Apply Edit</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary btn-lg" @onclick="AddBug">Add</button>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Especialidade</th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Pessoas.Count; i++)
+        {
+            var bug = Pessoas[i];
+            <tr>
+
+                <td>@(i + 1)</td>
+                <td>@bug.Id</td>
+                <td>@bug.Name</td>
+                <td>@bug.Description</td>
+
+                <td>
+                    <a class="btn btn-light">Details</a>
+                    <a class="btn btn-danger"   @onclick="()=>RemoveBug(bug)">Delete</a>
+                    <a class="btn btn-primary"  @onclick="()=>EditBug(bug)">Edit</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+@code{
+    private Pessoa pessoa = new Pessoa();
+    bool ShowConfirmEdit;
+    public int counter;
+
+    public IList<Pessoa> Pessoas { get; set; }
+
+    protected override void OnInitialized()
+    {
+        counter = 1;
+        ShowConfirmEdit = false;
+        Pessoas = _db.Pessoas.ToList();
+    }
+
+    private void AddBug()
+    {
+        if (ShowConfirmEdit)
+        {
+            return;
+        }
+        _db.Pessoas.Add(pessoa);
+        _db.SaveChanges();
+
+        Pessoas.Add(pessoa);
+        pessoa = new Pessoa();
+    }
+
+    private void RemoveBug(Pessoa bug)
+    {
+        _db.Pessoas.Remove(bug);
+        _db.SaveChanges();
+
+        Pessoas.Remove(bug);
+    }
+
+    private void EditBug(Pessoa bug)
+    {
+        ShowConfirmEdit = true;
+        pessoa = bug;
+    }
+
+    private async Task ConfirmEditBug()
+    {
+        _db.Pessoas.Update(pessoa);
+        await _db.SaveChangesAsync();
+        pessoa = new Pessoa();
+    }
+
+
+}

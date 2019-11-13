@@ -1,0 +1,12 @@
+﻿@page
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <h1>Blazor App SqLite</h1>
+<hr />
+
+<app>
+    @(await Html.RenderComponentAsync<BlazorLite.Components.App>(RenderMode.ServerPrerendered))
+</app>
+
