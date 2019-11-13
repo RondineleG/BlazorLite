@@ -12,10 +12,10 @@
         <div>
 
             <label>Nome:</label><br />
-            <input type="text" id="name" @bind="@pessoa.Name" class="form-control" />
+            <input type="text" id="name" @bind="@pessoa.Nome" class="form-control" />
             <br />
             <label>Especialidade:</label><br />
-            <textarea @bind="@pessoa.Description" class="form-control"></textarea>
+            <textarea @bind="@pessoa.Especialidade" class="form-control"></textarea>
             <br />
 
             @if (ShowConfirmEdit)
@@ -49,8 +49,8 @@
             var pessoa = Pessoas[i];
             <tr>
                 <td>@pessoa.Id</td>
-                <td>@pessoa.Name</td>
-                <td>@pessoa.Description</td>
+                <td>@pessoa.Nome</td>
+                <td>@pessoa.Especialidade</td>
                 <td>
                     <a class="btn btn-danger"   @onclick="()=>RemoveDev(pessoa)">Deletar</a>
                     <a class="btn btn-primary"  @onclick="()=>EditDev(pessoa)">Editar</a>
