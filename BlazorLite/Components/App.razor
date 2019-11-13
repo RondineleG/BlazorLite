@@ -48,16 +48,12 @@
         {
             var pessoa = Pessoas[i];
             <tr>
-
-                <td>@(i + 1)</td>
                 <td>@pessoa.Id</td>
                 <td>@pessoa.Name</td>
                 <td>@pessoa.Description</td>
-
                 <td>
-                    <a class="btn btn-light">Details</a>
-                    <a class="btn btn-danger"   @onclick="()=>RemoveDev(pessoa)">Delete</a>
-                    <a class="btn btn-primary"  @onclick="()=>EditDev(pessoa)">Edit</a>
+                    <a class="btn btn-danger"   @onclick="()=>RemoveDev(pessoa)">Deletar</a>
+                    <a class="btn btn-primary"  @onclick="()=>EditDev(pessoa)">Editar</a>
                 </td>
             </tr>
         }
@@ -76,7 +72,7 @@
     {
         counter = 1;
         ShowConfirmEdit = false;
-        Pessoas = _db.Pessoas.ToList();
+        Pessoas = _appDataContext.Pessoas.ToList();
     }
 
     private void AddDev()
@@ -85,8 +81,8 @@
         {
             return;
         }
-        _db.Pessoas.Add(pessoa);
-        _db.SaveChanges();
+        _appDataContext.Pessoas.Add(pessoa);
+        _appDataContext.SaveChanges();
 
         Pessoas.Add(pessoa);
         pessoa = new Pessoa();
@@ -94,8 +90,8 @@
 
     private void RemoveDev(Pessoa bug)
     {
-        _db.Pessoas.Remove(bug);
-        _db.SaveChanges();
+        _appDataContext.Pessoas.Remove(bug);
+        _appDataContext.SaveChanges();
 
         Pessoas.Remove(bug);
     }
@@ -108,8 +104,8 @@
 
     private async Task ConfirmEditDev()
     {
-        _db.Pessoas.Update(pessoa);
-        await _db.SaveChangesAsync();
+        _appDataContext.Pessoas.Update(pessoa);
+        await _appDataContext.SaveChangesAsync();
         pessoa = new Pessoa();
     }
 
