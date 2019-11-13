@@ -2,27 +2,29 @@
 @using BlazorLite.Data
 @using BlazorLite.Models
 
-@inject BlazorLite.Data.AppDataContext _db
+@inject BlazorLite.Data.AppDataContext _appDataContext
 
 
 
 <div class="row mb-3">
     <div class="col-6">
-        <h3>Nova Pessoa</h3>
+        <h3>Novo Desenvolvedor</h3>
         <div>
 
+            <label>Nome:</label><br />
             <input type="text" id="name" @bind="@pessoa.Name" class="form-control" />
             <br />
+            <label>Especialidade:</label><br />
             <textarea @bind="@pessoa.Description" class="form-control"></textarea>
             <br />
 
             @if (ShowConfirmEdit)
             {
-                <button class="btn btn-primary btn-lg" @onclick="ConfirmEditBug">Apply Edit</button>
+                <button class="btn btn-primary btn-lg" @onclick="ConfirmEditDev">Editar</button>
             }
             else
             {
-                <button type="submit" class="btn btn-primary btn-lg" @onclick="AddBug">Add</button>
+                <button type="submit" class="btn btn-primary btn-lg" @onclick="AddDev">Cadastrar</button>
             }
 
 
@@ -44,18 +46,18 @@
     <tbody>
         @for (int i = 0; i < Pessoas.Count; i++)
         {
-            var bug = Pessoas[i];
+            var pessoa = Pessoas[i];
             <tr>
 
                 <td>@(i + 1)</td>
-                <td>@bug.Id</td>
-                <td>@bug.Name</td>
-                <td>@bug.Description</td>
+                <td>@pessoa.Id</td>
+                <td>@pessoa.Name</td>
+                <td>@pessoa.Description</td>
 
                 <td>
                     <a class="btn btn-light">Details</a>
-                    <a class="btn btn-danger"   @onclick="()=>RemoveBug(bug)">Delete</a>
-                    <a class="btn btn-primary"  @onclick="()=>EditBug(bug)">Edit</a>
+                    <a class="btn btn-danger"   @onclick="()=>RemoveDev(pessoa)">Delete</a>
+                    <a class="btn btn-primary"  @onclick="()=>EditDev(pessoa)">Edit</a>
                 </td>
             </tr>
         }
@@ -77,7 +79,7 @@
         Pessoas = _db.Pessoas.ToList();
     }
 
-    private void AddBug()
+    private void AddDev()
     {
         if (ShowConfirmEdit)
         {
@@ -90,7 +92,7 @@
         pessoa = new Pessoa();
     }
 
-    private void RemoveBug(Pessoa bug)
+    private void RemoveDev(Pessoa bug)
     {
         _db.Pessoas.Remove(bug);
         _db.SaveChanges();
@@ -98,13 +100,13 @@
         Pessoas.Remove(bug);
     }
 
-    private void EditBug(Pessoa bug)
+    private void EditDev(Pessoa bug)
     {
         ShowConfirmEdit = true;
         pessoa = bug;
     }
 
-    private async Task ConfirmEditBug()
+    private async Task ConfirmEditDev()
     {
         _db.Pessoas.Update(pessoa);
         await _db.SaveChangesAsync();
