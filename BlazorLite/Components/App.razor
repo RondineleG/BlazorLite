@@ -12,10 +12,10 @@
         <div>
 
             <label>Nome:</label><br />
-            <input type="text" id="name" @bind="@pessoa.Nome" class="form-control" />
+            <input type="text" id="name" @bind="@Pessoa.Nome" class="form-control" />
             <br />
             <label>Especialidade:</label><br />
-            <textarea @bind="@pessoa.Especialidade" class="form-control"></textarea>
+            <textarea @bind="@Pessoa.Especialidade" class="form-control"></textarea>
             <br />
 
             @if (ShowConfirmEdit)
@@ -42,7 +42,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody class="active alert-success">
+    <tbody class="active">
         @for (int i = 0; i < Pessoas.Count; i++)
         {
             var pessoa = Pessoas[i];
@@ -63,7 +63,7 @@
 </table>
 
 @code{
-    private Pessoa pessoa = new Pessoa();
+    private Pessoa Pessoa = new Pessoa();
     bool ShowConfirmEdit;
     public int counter;
 
@@ -82,32 +82,32 @@
         {
             return;
         }
-        _appDataContext.Pessoas.Add(pessoa);
+        _appDataContext.Pessoas.Add(Pessoa);
         _appDataContext.SaveChanges();
 
-        Pessoas.Add(pessoa);
-        pessoa = new Pessoa();
+        Pessoas.Add(Pessoa);
+        Pessoa = new Pessoa();
     }
 
-    private void RemoveDev(Pessoa bug)
+    private void RemoveDev(Pessoa pessoa)
     {
-        _appDataContext.Pessoas.Remove(bug);
+        _appDataContext.Pessoas.Remove(pessoa);
         _appDataContext.SaveChanges();
 
-        Pessoas.Remove(bug);
+        Pessoas.Remove(pessoa);
     }
 
-    private void EditDev(Pessoa bug)
+    private void EditDev(Pessoa pessoa)
     {
         ShowConfirmEdit = true;
-        pessoa = bug;
+        this.Pessoa = pessoa;
     }
 
     private async Task ConfirmEditDev()
     {
-        _appDataContext.Pessoas.Update(pessoa);
+        _appDataContext.Pessoas.Update(Pessoa);
         await _appDataContext.SaveChangesAsync();
-        pessoa = new Pessoa();
+        Pessoa = new Pessoa();
     }
 
 
